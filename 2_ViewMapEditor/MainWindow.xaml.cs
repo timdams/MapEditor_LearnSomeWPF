@@ -153,17 +153,12 @@ namespace _2_ViewMapEditor
                 Point click = e.MouseDevice.GetPosition(mapCanvas);
                 int x = (int)((click.X / blokscale)) - 1;
                 int y = (int)((click.Y / blokscale)) - 1;
-                SetStatus(x + "," + y);
                 var t = (cmbBrush.SelectedItem as ComboBoxItem).Content.ToString();
                 currentMap.SetElement(x, y, Convert.ToInt32(t));
                 LoadMapOnView();
             }
         }
 
-        private void SetStatus(string status)
-        {
-            txbStatus.Text = status;
-        }
 
         private void slidesScale_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {

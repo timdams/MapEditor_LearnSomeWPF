@@ -11,18 +11,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="Bestand">
-                <MenuItem Header="New" Name="menuNew" Click="menuNew_Click"></MenuItem>
-                <MenuItem Header="Load" Name="menuLoad" Click="menuLoad_Click"></MenuItem>
-                <MenuItem Header="Save" Name="menuSave" Click="menuSave_Click"></MenuItem>
-                <MenuItem Header="Save as..." Name="menuSaveAs" Click="menuSaveAs_Click"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Clear" Name="menuClear" Click="menuClear_Click"></MenuItem>
-        </Menu>
-        
+<Menu Grid.Row="0">
+    <MenuItem Header="Bestand">
+        <MenuItem Header="New" Name="menuNew" Click="menuNew_Click"></MenuItem>
+        <MenuItem Header="Load" Name="menuLoad" Click="menuLoad_Click"></MenuItem>
+        <MenuItem Header="Save" Name="menuSave" Click="menuSave_Click"></MenuItem>
+        <MenuItem Header="Save as..." Name="menuSaveAs" Click="menuSaveAs_Click"></MenuItem>
+    </MenuItem>
+    <MenuItem Header="Clear" Name="menuClear" Click="menuClear_Click"></MenuItem>
+</Menu>
+
         <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -41,11 +40,10 @@
                 <Slider Name="slidesScale" ValueChanged="slidesScale_ValueChanged" Value="15" Maximum="50" Minimum="5" IsSnapToTickEnabled="True" TickFrequency="2"  ></Slider>
             </StackPanel>
             <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
-            <Canvas Name="mapCanvas"  MouseLeftButtonUp="mapCanvas_MouseLeftButtonUp" ></Canvas>
+                <Canvas Name="mapCanvas"  MouseLeftButtonUp="mapCanvas_MouseLeftButtonUp" ></Canvas>
             </ScrollViewer>
 
 
         </Grid>
-        <TextBlock Grid.Row="2" Name="txbStatus"></TextBlock>
     </Grid>
 </Window>
