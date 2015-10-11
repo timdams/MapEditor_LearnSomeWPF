@@ -23,7 +23,7 @@ namespace _2_ViewMapEditor
     {
 
         private MapModel currentMap;
-        private string currentMapPath="";
+        private string currentMapPath = "";
 
 
         public MainWindow()
@@ -39,7 +39,7 @@ namespace _2_ViewMapEditor
             //TODO: check if current map needs to be saved
             MapDimensions askdims = new MapDimensions();
             askdims.ShowDialog();
-            currentMap = new MapModel( askdims.Breedte,askdims.Hoogte);
+            currentMap = new MapModel(askdims.Breedte, askdims.Hoogte);
             LoadMapOnView();
         }
 
@@ -58,20 +58,19 @@ namespace _2_ViewMapEditor
 
         private void menuSave_Click(object sender, RoutedEventArgs e)
         {
-       
-            if (currentMapPath == "" )
+
+            if (currentMapPath == "")
             {
                 SaveFileDialog dialog = new SaveFileDialog();
                 if (dialog.ShowDialog() == true)
                 {
                     currentMapPath = dialog.FileName;
+                    currentMap.SaveMap(currentMapPath);
                 }
             }
 
-            currentMap.SaveMap(currentMapPath);
         }
 
-    
 
         private void menuSaveAs_Click(object sender, RoutedEventArgs e)
         {
@@ -81,7 +80,6 @@ namespace _2_ViewMapEditor
                 currentMapPath = dialog.FileName;
 
                 currentMap.SaveMap(currentMapPath);
-
 
             }
         }
