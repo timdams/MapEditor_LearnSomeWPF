@@ -16,7 +16,7 @@ namespace _2_ViewMapEditor
         }
         public MapModel(byte[,] map)
         {
-          
+
             _map = map;
         }
         public MapModel(string path)
@@ -36,7 +36,7 @@ namespace _2_ViewMapEditor
             }
 
         }
-        
+
         //ReadOnly Properties
         public int Hoogte
         {
@@ -47,7 +47,7 @@ namespace _2_ViewMapEditor
             get { return _map.GetLength(1); }
         }
 
-     
+
         //methods
         public void SetElement(int x, int y, int value)
         {
@@ -63,14 +63,14 @@ namespace _2_ViewMapEditor
             {
                 for (int j = 0; j < Breedte; j++)
                 {
-                    _map[i,j] = 0;  //We could also just say _map= new byte[Hoogte, Breedte] ;
+                    _map[i, j] = 0;  //We could also just say _map= new byte[Hoogte, Breedte] ;
                 }
             }
         }
 
 
         //FileIO
-        public  void LoadMap(string path)
+        public void LoadMap(string path)
         {
             StreamReader reader = new StreamReader(path);
 
@@ -90,28 +90,27 @@ namespace _2_ViewMapEditor
                 }
 
             }
-            reader.Close();
             _map = resultaat;
+
+            reader.Close();
+
         }
         public void SaveMap(string path)
         {
-            //Mapdimensies uitlezen 
-            int breedte = _map.GetLength(1);
-            int hoogte = _map.GetLength(0);
-
 
             //Klaar om te schrijven
             StreamWriter writer = new StreamWriter(path);
-            writer.WriteLine(breedte);
-            writer.WriteLine(hoogte);
+            //Mapdimensies schrijven 
+            writer.WriteLine(Breedte);
+            writer.WriteLine(Hoogte);
 
-            for (int i = 0; i < hoogte; i++)
+            for (int i = 0; i < Hoogte; i++)
             {
-                for (int j = 0; j < breedte; j++)
+                for (int j = 0; j < Breedte; j++)
                 {
-                    writer.Write(_map[i, j]);
-                    if (j < breedte - 1)
-                        writer.Write(","); //Geen komma op einde van tekst
+                    writer.Write(_map[i,j]);
+                    if (j < Breedte - 1)//Geen komma op einde van lijn
+                        writer.Write(",");
                 }
                 writer.WriteLine();
             }
