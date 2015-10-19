@@ -40,7 +40,10 @@
                 <Slider Name="slidesScale" ValueChanged="slidesScale_ValueChanged" Value="15" Maximum="50" Minimum="5" IsSnapToTickEnabled="True" TickFrequency="2"  ></Slider>
             </StackPanel>
             <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
-                <Canvas Name="mapCanvas"  MouseLeftButtonUp="mapCanvas_MouseLeftButtonUp" Background="Transparent" ></Canvas>
+                <Canvas Name="mapCanvas"  MouseLeftButtonUp="mapCanvas_MouseLeftButtonUp" Background="Transparent" >
+                    <Canvas.CacheMode>
+                        <BitmapCache EnableClearType="False" RenderAtScale="1" SnapsToDevicePixels="False" /></Canvas.CacheMode>
+                </Canvas>
             </ScrollViewer>
 
 
