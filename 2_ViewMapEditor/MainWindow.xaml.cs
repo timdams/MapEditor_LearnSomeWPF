@@ -68,7 +68,8 @@ namespace _2_ViewMapEditor
                     
                 }
             }
-			currentMap.SaveMap(currentMapPath);
+            if (currentMapPath != "")
+                currentMap.SaveMap(currentMapPath);
 
         }
 
