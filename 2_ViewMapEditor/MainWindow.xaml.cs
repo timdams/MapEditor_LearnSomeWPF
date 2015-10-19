@@ -65,9 +65,10 @@ namespace _2_ViewMapEditor
                 if (dialog.ShowDialog() == true)
                 {
                     currentMapPath = dialog.FileName;
-                    currentMap.SaveMap(currentMapPath);
+                    
                 }
             }
+			currentMap.SaveMap(currentMapPath);
 
         }
 
