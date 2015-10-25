@@ -66,7 +66,7 @@ namespace _2_ViewMapEditor
                 if (dialog.ShowDialog() == true)
                 {
                     currentMapPath = dialog.FileName;
-                    
+
                 }
             }
             if (currentMapPath != "")
@@ -155,13 +155,20 @@ namespace _2_ViewMapEditor
                 int x = (int)((click.X / blokscale)) - 1;
                 int y = (int)((click.Y / blokscale)) - 1;
                 var t = (cmbBrush.SelectedItem as ComboBoxItem).Content.ToString();
-                Undo newAction = new Undo() { X = x, Y = y, OriginalValue= (int)currentMap.GetElement(x, y) };
-                UndoHistory.Push(newAction);
+                if (chkQueue.IsChecked == false)
+                {
+                    Undo newAction = new Undo() { X = x, Y = y, OriginalValue = (int)currentMap.GetElement(x, y) };
+                    UndoHistory.Push(newAction);
 
-                currentMap.SetElement(x, y, Convert.ToInt32(t));
-                           
-                
+                    currentMap.SetElement(x, y, Convert.ToInt32(t));
+
                     LoadMapOnView();
+                }
+                else
+                {
+                    Undo actionToQueue = new Undo() { X = x, Y = y, OriginalValue = Convert.ToInt32(t) };
+                    queueActions.Enqueue(actionToQueue);
+                }
             }
         }
 
@@ -177,11 +184,39 @@ namespace _2_ViewMapEditor
 
         private void menuUndo_Click(object sender, RoutedEventArgs e)
         {
-            if(UndoHistory.Count>0)
+            if (UndoHistory.Count > 0)
             {
                 Undo lastaction = UndoHistory.Pop();
                 currentMap.SetElement(lastaction.X, lastaction.Y, lastaction.OriginalValue);
                 LoadMapOnView();
+            }
+        }
+
+
+        Queue<Undo> queueActions = new Queue<Undo>();
+
+        private void chkQueue_Checked(object sender, RoutedEventArgs e)
+        {
+            queueActions = new Queue<Undo>();
+            //Todo: check if there were still actions left in queue.
+        }
+
+        private void chkQueue_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if(queueActions.Count>0)
+            {
+                var res = MessageBox.Show("Wilt u alle acties in queue nu uitvoeren?", "Queue", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
+                if(res== MessageBoxResult.Yes)
+                {
+                    while(queueActions.Count>0)
+                    {
+                        var action = queueActions.Dequeue();
+                        currentMap.SetElement(action.X, action.Y, action.OriginalValue);
+                        //Todo: add big undo?
+                    }
+                    LoadMapOnView();
+                }
+               
             }
         }
     }

@@ -39,6 +39,9 @@
                     </ComboBox.Items>
                 </ComboBox>
                 <Slider Name="slidesScale" ValueChanged="slidesScale_ValueChanged" Value="15" Maximum="50" Minimum="5" IsSnapToTickEnabled="True" TickFrequency="2"  ></Slider>
+                <GroupBox Header="Queue actions">
+                    <CheckBox Name="chkQueue" IsChecked="False" Content="Enable" Checked="chkQueue_Checked" Unchecked="chkQueue_Unchecked" ></CheckBox>
+                </GroupBox>
             </StackPanel>
             <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
                 <Canvas Name="mapCanvas"  MouseLeftButtonUp="mapCanvas_MouseLeftButtonUp" Background="Transparent" ></Canvas>
