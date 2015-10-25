@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using _2_ViewMapEditor.Features;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -154,8 +155,13 @@ namespace _2_ViewMapEditor
                 int x = (int)((click.X / blokscale)) - 1;
                 int y = (int)((click.Y / blokscale)) - 1;
                 var t = (cmbBrush.SelectedItem as ComboBoxItem).Content.ToString();
+                Undo newAction = new Undo() { X = x, Y = y, OriginalValue= (int)currentMap.GetElement(x, y) };
+                UndoHistory.Push(newAction);
+
                 currentMap.SetElement(x, y, Convert.ToInt32(t));
-                LoadMapOnView();
+                           
+                
+                    LoadMapOnView();
             }
         }
 
@@ -164,6 +170,19 @@ namespace _2_ViewMapEditor
         {
             blokscale = (int)e.NewValue;
             LoadMapOnView();
+        }
+
+
+        Stack<Undo> UndoHistory = new Stack<Undo>(5); //Max 5 undos for now
+
+        private void menuUndo_Click(object sender, RoutedEventArgs e)
+        {
+            if(UndoHistory.Count>0)
+            {
+                Undo lastaction = UndoHistory.Pop();
+                currentMap.SetElement(lastaction.X, lastaction.Y, lastaction.OriginalValue);
+                LoadMapOnView();
+            }
         }
     }
 }
